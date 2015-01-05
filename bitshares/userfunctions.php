@@ -5,6 +5,7 @@ chdir(ROOT.'..');
 require 'includes/application_top.php';
 chdir($path);
 require 'config.php';
+require 'remove_order.php';
 function getOpenOrdersHelper()
 {
 	global $db;
@@ -173,12 +174,11 @@ function cancelOrderUser($memo, $order_id)
       	
     if(function_exists('zen_remove_order'))
     {
-		echo 'remove';
         zen_remove_order($order_id, $restock = true);
     }
         
-	//$response['url'] = $baseURL.'index.php?main_page=shopping_cart';
-	$response['url'] = zen_href_link('account');
+	$response['url'] = $baseURL;
+
 	return $response;
 }
 function cronJobUser()

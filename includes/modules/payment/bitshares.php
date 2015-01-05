@@ -109,6 +109,10 @@ class bitshares {
 
   // called upon clicking confirm
   function before_process() {
+    global $insert_id, $order, $db;
+ 
+    // change order status to value selected by merchant
+    $db->Execute("update ". TABLE_ORDERS. " set orders_status = " . intval(MODULE_PAYMENT_BITSHARES_UNPAID_STATUS_ID) . " where orders_id = ". intval($insert_id));
     return false; 
   }
 

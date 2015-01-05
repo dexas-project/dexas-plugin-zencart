@@ -3,36 +3,40 @@ bitshares/zencart-plugin
 
 # Installation
 
-Copy these files into your Zen Cart directory.
-
+1. Copy these files into your osCommerce root directory
+2. Copy Bitshares Checkout (https://github.com/sidhujag/bitsharescheckout) files into your osCommerce root directory, overwrite any existing files.
 # Configuration
 
-1. Create an API key at bitshares.com under your My Account section.
-2. In Admin panel under "Modules > Payment > Bitcoins" click Install.
-3. Fill out all configuration information:<br />
-a. Verify that the module is enabled.<br />
-b. Set the API key to the value you created in step 1.<br />
-c. Select a transaction speed.  The high speed will send a confirmation as soon as a transaction is received in the bitcoin network (usually a few seconds).  A medium speed setting will typically take 10 minutes.  The low speed setting usually takes around 1 hour.  See the bitshares.com merchant documentation for a full description of the transaction speed settings: https://bitshares.com/downloads/bitsharesApi.pdf<br />
-d. Choose a status for unpaid and paid orders (or leave the default values as defined).<br />
-e. Verify that the currencies displayed correspond to what you want and to those accepted by bitshares.com (the defaults are what bitshares accepts as of this writing).<br />
-f. Choose a sort order for displaying this payment option to visitors.  Lowest is displayed first.<br />
+1. In your osCommerce admin panel under Modules > Payment, install the Bitshares module
+2. Fill out all of the configuration information:
+	- Verify that the module is enabled.
+	- Choose a status for unpaid and paid orders (or leave the default values as
+      defined).
+	- Choose a sort order for displaying this payment option to visitors.
+      Lowest is displayed first.
+3. Fill out config.php with appropriate information.
+    - See the readme at https://github.com/sidhujag/bitsharescheckout for a description of config.php
 
 # Usage
 
-When a shopping chooses the Bitcoin payment method, they will be presented with an order summary as the next step (prices are shown in whatever currency they've selected for shopping). Upon receiving their order, the system takes the shopper to a bitshares.com invoice where the user is presented with bitcoin payment instructions.  Once payment is received, a link is presented to the shopper that will take them back to your website.
+When a user chooses the Bitshares method, they will be
+presented with an order summary as the next step (prices are shown in whatever
+currency they've selected for shopping). Upon confirming their order, the system
+takes the user to the Bithshares Checkout.  Once payment is received, the Bithshares Checkout
+will redirect the user back to the merchant website.
 
-In your Admin control panel, you can see the orders made with Bitcoins just as you would any other order.  The status you selected in the configuration steps above will indicate whether the order has been paid for.  
+In your Admin control panel, you can see the orders made via Bitshares just as
+you could see for any other payment mode.  The status you selected in the
+configuration steps above will indicate whether the order has been paid for.  
 
-Note: This extension does not provide a means of automatically pulling a current BTC exchange rate for presenting BTC prices to shoppers.
 
 # Support
 
 ## Bitshares Support
 
-* [GitHub Issues](https://github.com/bitshares/zencart-plugin/issues)
+* [GitHub Issues](https://github.com/sidhujag/bitshares-zencart/issues)
   * Open an issue if you are having issues with this plugin.
-* [Support](https://support.bitshares.com)
-  * Bitshares merchant support documentation
+
 
 ## ZenCart Support
 
