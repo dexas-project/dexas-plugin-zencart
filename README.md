@@ -15,7 +15,7 @@ bitshares/zencart-plugin
       defined).
 	- Choose a sort order for displaying this payment option to visitors.
       Lowest is displayed first.
-1. Fill out config.php with appropriate information and configure Bitshares Checkout
+3. Fill out config.php with appropriate information and configure Bitshares Checkout
     - See the readme at https://github.com/sidhujag/bitsharescheckout
 
 # Usage
