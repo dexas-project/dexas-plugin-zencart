@@ -3,20 +3,20 @@ bitshares/zencart-plugin
 
 # Installation
 
-1. Copy these files into your osCommerce root directory
-2. Copy Bitshares Checkout (https://github.com/sidhujag/bitsharescheckout) files into your osCommerce root directory, overwrite any existing files.
+1. Copy these files into your zencart root directory<br />
+2. Copy Bitshares Checkout (https://github.com/sidhujag/bitsharescheckout) files into your zencart root directory, overwrite any existing files.<br />
 
 # Configuration
 
-1. In your osCommerce admin panel under Modules > Payment, install the Bitshares module
-2. Fill out all of the configuration information:
-	- Verify that the module is enabled.
+1. In your admin panel under Modules > Payment, install the Bitshares module<br />
+2. Fill out all of the configuration information:<br />
+	- Verify that the module is enabled.<br />
 	- Choose a status for unpaid and paid orders (or leave the default values as
-      defined).
+      defined).<br />
 	- Choose a sort order for displaying this payment option to visitors.
-      Lowest is displayed first.
-3. Fill out config.php with appropriate information and configure Bitshares Checkout
-    - See the readme at https://github.com/sidhujag/bitsharescheckout
+      Lowest is displayed first.<br />
+3. Fill out config.php with appropriate information and configure Bitshares Checkout<br />
+    - See the readme at https://github.com/sidhujag/bitsharescheckout<br />
 
 # Usage
 
@@ -53,7 +53,7 @@ To contribute to this project, please fork and submit a pull request.
 
 The MIT License (MIT)
 
-Copyright (c) 2011-2014 Bitshares
+Copyright (c) 2011-2015 Bitshares
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
