@@ -8,8 +8,7 @@ require 'config.php';
 require 'remove_order.php';
 function isOrderCompleteUser($memo, $order_id)
 {
-	global $accountName;
-	global $hashSalt;
+
 	global $db;
 	$sql = "select orders_id, currency, order_total from " .TABLE_ORDERS. " where orders_status = '" . MODULE_PAYMENT_BITSHARES_PAID_STATUS_ID ."' and orders_id = '".$order_id."'";
 	$result = $db->Execute($sql);
@@ -18,7 +17,7 @@ function isOrderCompleteUser($memo, $order_id)
 			$total = $result->fields['order_total'];
 			$total = number_format((float)$total,2);
 			$asset = btsCurrencyToAsset($result->fields['currency']);
-			$hash =  btsCreateEHASH($accountName,$order_id, $total, $asset, $hashSalt);
+			$hash =  btsCreateEHASH(accountName,$order_id, $total, $asset, hashSalt);
 			$memoSanity = btsCreateMemo($hash);		
 			if($memoSanity === $memo)
 			{	
@@ -32,8 +31,7 @@ function isOrderCompleteUser($memo, $order_id)
 }
 function doesOrderExistUser($memo, $order_id)
 {
-	global $accountName;
-	global $hashSalt;
+
 	global $db;
 
 	$sql = "select orders_id, currency, order_total from ". TABLE_ORDERS. " where orders_status = '" . MODULE_PAYMENT_BITSHARES_UNPAID_STATUS_ID ."' and orders_id = '".$order_id."'";
@@ -44,7 +42,7 @@ function doesOrderExistUser($memo, $order_id)
 			$total = $result->fields['order_total'];
 			$total = number_format((float)$total,2);
 			$asset = btsCurrencyToAsset($result->fields['currency']);
-			$hash =  btsCreateEHASH($accountName,$order_id, $total, $asset, $hashSalt);
+			$hash =  btsCreateEHASH(accountName,$order_id, $total, $asset, hashSalt);
 			$memoSanity = btsCreateMemo($hash);			
 			if($memoSanity === $memo)
 			{	
@@ -87,7 +85,7 @@ function getOpenOrdersUser()
 function completeOrderUser($order)
 {
 	
-	global $baseURL;
+	
 	global $db;
 	$response = array();
 	
@@ -105,12 +103,12 @@ function completeOrderUser($order)
                         'comments' => 'Order Processed! [Transaction ID: ' . $transid . ']');
 	zen_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
 	
-	$response['url'] = $baseURL.'index.php?main_page=checkout_success';
+	$response['url'] = baseURL.'index.php?main_page=checkout_success';
 	return $response;
 }
 function cancelOrderUser($order)
 {
-	global $baseURL;
+	
 	global $db;
 	$response = array();
   # update order status to reflect processed status:
@@ -134,7 +132,7 @@ function cancelOrderUser($order)
       zen_remove_order($order['order_id'], $restock = true);
   }
         
-	$response['url'] = $baseURL;
+	$response['url'] = baseURL;
 	return $response;
 }
 function cronJobUser()
@@ -144,17 +142,15 @@ function cronJobUser()
 function createOrderUser()
 {
 
-	global $accountName;
-	global $hashSalt;
 	global $db;
 	$order_id    = $_REQUEST['order_id'];
 	$asset = btsCurrencyToAsset($_REQUEST['code']);
 	$total = number_format((float)$_REQUEST['total'],2);
 	
-	$hash =  btsCreateEHASH($accountName,$order_id, $total, $asset, $hashSalt);
+	$hash =  btsCreateEHASH(accountName,$order_id, $total, $asset, hashSalt);
 	$memo = btsCreateMemo($hash);
 	$ret = array(
-		'accountName'     => $accountName,
+		'accountName'     => accountName,
 		'order_id'     => $order_id,
 		'memo'     => $memo
 	);

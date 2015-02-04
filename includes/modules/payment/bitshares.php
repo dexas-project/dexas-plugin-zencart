@@ -119,7 +119,7 @@ class bitshares {
   // called upon clicking confirm (after before_process and after the order is created)
   function after_process() {
     global $insert_id, $order;  
-    $url = 'bitshares\redirect2bitshares.php?order_id='.$insert_id.'&code='.$order->info['currency'].'&total='.$order->info['total']; 
+    $url = 'bitshares/redirect2bitshares.php?order_id='.$insert_id.'&code='.$order->info['currency'].'&total='.$order->info['total']; 
 	$_SESSION['cart']->reset(true);
 	zen_redirect($url);
     return false;
