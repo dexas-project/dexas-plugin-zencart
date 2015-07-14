@@ -34,7 +34,7 @@ function doesOrderExistUser($memo, $order_id)
 
 	global $db;
 
-	$sql = "select orders_id, currency, order_total from ". TABLE_ORDERS. " where orders_status = '" . MODULE_PAYMENT_BITSHARES_UNPAID_STATUS_ID ."' and orders_id = '".$order_id."'";
+	$sql = "select orders_id, currency, order_total, orders_date_finished from ". TABLE_ORDERS. " where orders_status = '" . MODULE_PAYMENT_BITSHARES_UNPAID_STATUS_ID ."' and orders_id = '".$order_id."'";
 	$result = $db->Execute($sql);
 
 	if ($result->RecordCount() > 0) {
@@ -51,7 +51,7 @@ function doesOrderExistUser($memo, $order_id)
 				$order['total'] = $total;
 				$order['asset'] = $asset;
 				$order['memo'] = $memo;	
-				
+				$order['date_added'] = $result->fields['orders_date_finished'];  
 				return $order;
 			}
 			$result->MoveNext();
@@ -63,18 +63,23 @@ function getOpenOrdersUser()
 {
 	global $db;
 	$openOrderList = array();
-	$sql = "select orders_id, currency, order_total from ". TABLE_ORDERS." where orders_status = '" . MODULE_PAYMENT_BITSHARES_UNPAID_STATUS_ID ."'";
+	$sql = "select orders_id, currency, order_total, orders_date_finished from ". TABLE_ORDERS." where orders_status = '" . MODULE_PAYMENT_BITSHARES_UNPAID_STATUS_ID ."'";
 	$result = $db->Execute($sql);
 
 	if ($result->RecordCount() > 0) {
 	  while (!$result->EOF) {
 		$newOrder = array();
+    $id = $order['cart_id'];
 		$total = $result->fields['order_total'];
-		$total = number_format((float)$total,2);		
+		$total = number_format((float)$total,2);	
+    $asset = btsCurrencyToAsset($result->fields['currency']);
+  	$hash =  btsCreateEHASH(accountName,$id, $total, $asset, hashSalt);
+		$memo = btsCreateMemo($hash); 
+    
 		$newOrder['total'] = $total;
-		$newOrder['currency_code'] = $result->fields['currency'];
-		$newOrder['order_id'] = $result->fields['orders_id'];
-		$newOrder['date_added'] = 0;
+		$newOrder['asset'] = $asset;
+		$newOrder['order_id'] = $id;
+		$newOrder['date_added'] = $result->fields['orders_date_finished'];
 		array_push($openOrderList,$newOrder);    
 		$result->MoveNext();
 	  }
